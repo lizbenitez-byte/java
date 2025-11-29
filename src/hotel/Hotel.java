@@ -198,7 +198,7 @@ public class Hotel {
                         }
                     }
                     if (!clientAllotjat) {
-                        System.out.println("No s'ha pogut fer el CHECK-IN.");
+                        
                     }
                     break;
                
