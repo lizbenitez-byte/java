@@ -19,6 +19,7 @@ public class Hotel {
     public static ArrayList<Estades> estada = new ArrayList();
     public static ArrayList<Serveis> servei = new ArrayList();
     public static Scanner sc = new Scanner(System.in);
+    public static Estades estadActual = null;
 
     public static void main(String[] args) {
 
@@ -30,10 +31,10 @@ public class Hotel {
         habitacio.add(new Habitacions(i+20,80,true));
         }
         //crem serveis
-        servei.add(new Serveis(01, "Bogaderia", 10));
-        servei.add(new Serveis(02, "Esmorzar", 11));
-        servei.add(new Serveis(03, "Dinar", 20));
-        servei.add(new Serveis(04, "Sopar", 18));
+        servei.add(new Serveis(01, "Bogaderia", 10.0));
+        servei.add(new Serveis(02, "Esmorzar", 11.0));
+        servei.add(new Serveis(03, "Dinar", 20.0));
+        servei.add(new Serveis(04, "Sopar", 18.0));
         
         //crear clients 
         client.add(new Clients ("111A", "Liz", "20-03-2000", "Vic"));
@@ -170,22 +171,21 @@ public class Hotel {
                 
 
                 case 2:
-                   //check-in
+                    //check-in
                     boolean clientAllotjat = false;
-                    System.out.println("Introdueix el número de l'habitació que vols assignar:");
-                    int numHab = sc.nextInt();
-
-
                     for (int i = 0; i < client.size(); i++) {
 
-                        if (!client.get(i).isCheckin()&& client.get(i).getNif().equals(nif)) {
+                        if (client.get(i).getNif().equals(nif) && !client.get(i).isCheckin()) {
 
-                            for (int j = 0; j < habitacio.size(); j++) {     
+                            System.out.println("Introdueix el número de l'habitació que vols assignar:");
+                            int numHab = sc.nextInt();
+
+                            for (int j = 0; j < habitacio.size(); j++) {
                                 if (habitacio.get(j).getNumHabitacio() == numHab && habitacio.get(j).isLliure()) {
                                     habitacio.get(j).setLliure(false);
                                     estada.add(new Estades(nif, habitacio.get(i)));
                                     client.get(i).setCheckin(true);
-                                    
+
                                     clientAllotjat = true;
 
                                     System.out.println("CHECK-IN " + nif);
@@ -198,25 +198,82 @@ public class Hotel {
                         }
                     }
                     if (!clientAllotjat) {
-                        
+                        System.out.println("J'ha s'ha fet el check-in aquest client.");;
                     }
                     break;
-               
-                case 3:
                     
-
+                case 3:
+                    for (int i = 0; i < estada.size(); i++) {
+                        if (estada.get(i).getNifclients().equals(nif)) {
+                            estadActual = estada.get(i);
+                            break;
+                        }
+                    }
+                    for (int j = 0; j < servei.size(); j++) {
+                        Serveis s = servei.get(j);
+                        if (s.getIdServei() == 01) {
+                            estadActual.getServei().add(s);
+                            estadActual.setImportActual(estadActual.getImportActual() + s.getPreu());
+                            System.out.println("Al client "+ nif +" s'ha afegit un servei: "+ estadActual.getServei());
+                        }
+                    }
                     break;
+                    
                 case 4:
+                    for (int i = 0; i < estada.size(); i++) {
+                        if (estada.get(i).getNifclients().equals(nif)) {
+                            estadActual = estada.get(i);
+                            break;
+                        }
+                    }
+                    for (int j = 0; j < servei.size(); j++) {
+                        Serveis s = servei.get(j);
+                        if (s.getIdServei() == 02) {
+                            estadActual.getServei().add(s);
+                            estadActual.setImportActual(estadActual.getImportActual() + s.getPreu());
+                            System.out.println("Al client "+ nif +" s'ha afegit un servei: "+ estadActual.getServei());
+                        }
+                    }
 
                     break;
                 case 5:
+                    for (int i = 0; i < estada.size(); i++) {
+                        if (estada.get(i).getNifclients().equals(nif)) {
+                            estadActual = estada.get(i);
+                            break;
+                        }
+                    }
+                    for (int j = 0; j < servei.size(); j++) {
+                        Serveis s = servei.get(j);
+                        if (s.getIdServei() == 03) {
+                            estadActual.getServei().add(s);
+                            estadActual.setImportActual(estadActual.getImportActual() + s.getPreu());
+                            System.out.println("Al client "+ nif +" s'ha afegit un servei: "+ estadActual.getServei());
+                        }
+                    }
 
                     break;
 
                 case 6:
+                    for (int i = 0; i < estada.size(); i++) {
+                        if (estada.get(i).getNifclients().equals(nif)) {
+                            estadActual = estada.get(i);
+                            break;
+                        }
+                    }
+                    for (int j = 0; j < servei.size(); j++) {
+                        Serveis s = servei.get(j);
+                        if (s.getIdServei() == 04) {
+                            estadActual.getServei().add(s);
+                            estadActual.setImportActual(estadActual.getImportActual() + s.getPreu());
+                            System.out.println("Al client "+ nif +" s'ha afegit un servei: "+ estadActual.getServei());
+                        }
+                    }
                     break;
 
-                case 7:
+                case 7 :
+                    System.out.println("L'import actual del client "+ nif +" es: "+ estadActual.getImportActual()+ " euros");
+                    System.out.println(estadActual.toString());
 
                     break;
 

@@ -12,9 +12,9 @@ public class Serveis {
    
     private int idServei;
     private String descripcio;
-    private int preu;
+    private double preu;
 
-    public Serveis(int idServei, String descripcio, int preu) {
+    public Serveis(int idServei, String descripcio, double preu) {
         this.idServei = idServei;
         this.descripcio = descripcio;
         this.preu = preu;
@@ -28,7 +28,7 @@ public class Serveis {
         return descripcio;
     }
 
-    public int getPreu() {
+    public double getPreu() {
         return preu;
     }
     
@@ -42,14 +42,15 @@ public class Serveis {
         this.descripcio = descripcio;
     }
 
-    public void setPreu(int preu) {
+    public void setPreu(double preu) {
         this.preu = preu;
     }
+    
     //to string
 
     @Override
     public String toString() {
-        return "Serveis{" + "idServei=" + idServei + ", descripcio=" + descripcio + ", preu=" + preu + '}';
+        return "\nServeis{" + "idServei=" + idServei + ", descripcio=" + descripcio + ", preu=" + preu + '}';
     }
     
     
