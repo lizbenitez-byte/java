@@ -16,7 +16,7 @@ public class Estades {
 private String nifclients;
 private ArrayList <Serveis> servei = new ArrayList();    
 private LocalDate dataEntrada = LocalDate.now();
-private LocalDate dataSortida = LocalDate.now();
+private LocalDate dataSortida = null;
 private Habitacions Habitacio;
 private double importActual = 0;
           
@@ -75,11 +75,16 @@ private double importActual = 0;
         this.importActual = importActual;
     }
     
+     public double CalculFactura(double DiesEstada) {
+        return (DiesEstada *
+                this.getHabitacio().getPreuNit()+ 
+                this.getImportActual())+ 1.16;
+    }
     
 
     @Override
     public String toString() {
-        return "Estades{" + "nifclients=" + nifclients + ", servei=" + servei + ", dataEntrada=" + dataEntrada + ", dataSortida=" + "" + ", Habitacio=" + Habitacio + ", importActual=" + importActual + '}';
+        return "Estades{" + "nifclients=" + nifclients + ", servei=" + servei + ", dataEntrada=" + dataEntrada + ", dataSortida=" + dataSortida + ", Habitacio=" + Habitacio + ", importActual=" + importActual + '}';
     }
     
 }

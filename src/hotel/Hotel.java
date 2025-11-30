@@ -4,7 +4,10 @@
  */
 package hotel;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -146,7 +149,7 @@ public class Hotel {
     public static void submenu(String nif) {
 
         int input = 0;
-        while (input != 10){
+        while (input != 11) {
             System.out.println("1. Llistar Habitacions");
             System.out.println("2. Checkin");
             System.out.println("3. Servei Bogederia");
@@ -155,7 +158,8 @@ public class Hotel {
             System.out.println("6. Servei Sopar");
             System.out.println("7. Consultar import actual");
             System.out.println("8. Checkout");
-            System.out.println("9 Sortir del sistema");
+            System.out.println("9. Tornar al menu");
+            System.out.println("10. Sortir del sistema");
             System.out.println("------------------------------");
 
             System.out.println("Escull una d'aquestes opcions: \n");
@@ -166,9 +170,8 @@ public class Hotel {
 
                 case 1:
                     System.out.println(habitacio.toString());
-                    
-                    break; 
-                
+
+                    break;
 
                 case 2:
                     //check-in
@@ -201,7 +204,7 @@ public class Hotel {
                         System.out.println("J'ha s'ha fet el check-in aquest client.");;
                     }
                     break;
-                    
+
                 case 3:
                     for (int i = 0; i < estada.size(); i++) {
                         if (estada.get(i).getNifclients().equals(nif)) {
@@ -214,11 +217,11 @@ public class Hotel {
                         if (s.getIdServei() == 01) {
                             estadActual.getServei().add(s);
                             estadActual.setImportActual(estadActual.getImportActual() + s.getPreu());
-                            System.out.println("Al client "+ nif +" s'ha afegit un servei: "+ estadActual.getServei());
+                            System.out.println("Al client " + nif + " s'ha afegit un servei: " + estadActual.getServei());
                         }
                     }
                     break;
-                    
+
                 case 4:
                     for (int i = 0; i < estada.size(); i++) {
                         if (estada.get(i).getNifclients().equals(nif)) {
@@ -231,7 +234,7 @@ public class Hotel {
                         if (s.getIdServei() == 02) {
                             estadActual.getServei().add(s);
                             estadActual.setImportActual(estadActual.getImportActual() + s.getPreu());
-                            System.out.println("Al client "+ nif +" s'ha afegit un servei: "+ estadActual.getServei());
+                            System.out.println("Al client " + nif + " s'ha afegit un servei: " + estadActual.getServei());
                         }
                     }
 
@@ -248,7 +251,7 @@ public class Hotel {
                         if (s.getIdServei() == 03) {
                             estadActual.getServei().add(s);
                             estadActual.setImportActual(estadActual.getImportActual() + s.getPreu());
-                            System.out.println("Al client "+ nif +" s'ha afegit un servei: "+ estadActual.getServei());
+                            System.out.println("Al client " + nif + " s'ha afegit un servei: " + estadActual.getServei());
                         }
                     }
 
@@ -266,20 +269,56 @@ public class Hotel {
                         if (s.getIdServei() == 04) {
                             estadActual.getServei().add(s);
                             estadActual.setImportActual(estadActual.getImportActual() + s.getPreu());
-                            System.out.println("Al client "+ nif +" s'ha afegit un servei: "+ estadActual.getServei());
+                            System.out.println("Al client " + nif + " s'ha afegit un servei: " + estadActual.getServei());
                         }
                     }
                     break;
 
-                case 7 :
-                    System.out.println("L'import actual del client "+ nif +" es: "+ estadActual.getImportActual()+ " euros");
-                    System.out.println(estadActual.toString());
+                case 7:
+                    System.out.println("L'import actual del client " + nif + " es: " + estadActual.getImportActual() + " euros");
 
                     break;
 
                 case 8:
-                    break;
+                    System.out.println("Introdueix data de sortida(yyyy-MM-dd): \n");
+                    String dataSortida = sc.next();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    LocalDate parseDate = LocalDate.parse(dataSortida, formatter);
 
+                    //Desem la data de entrada a l'estada
+                    for (int i = 0; i < estada.size(); i++) {
+                        if (nif.equals(estada.get(i).getNifclients())) {
+                            estada.get(i).setDataSortida(parseDate);
+
+                            System.out.println("DADES DE LA ESTADA -CHECKOUT: \n");
+                            System.out.println(estada.toString());
+
+                            System.out.println("Preu Total:");
+                            System.out.println(estada.get(i).CalculFactura(ChronoUnit.DAYS.between(estada.get(i).getDataEntrada(), parseDate))+" euros");
+                           
+                            //client cobrat si s'ha cobrat
+                            for (i = 0; i < client.size(); i++) {
+                                if(client.get(i).isCobrat()){
+                                    client.get(i).setCobrat(true);    
+                                }
+                            }
+                            //posar la habitacio lliure
+                            for (int j = 0; j < habitacio.size(); j++) {
+                                if (habitacio.get(j).isLliure()){
+                                  habitacio.get(j).setLliure(true);  
+                                }
+                            }
+                        }
+                    }
+                        break;
+
+                case 9:
+                        Menu(); 
+                    break;
+                    
+                case 10:
+                        
+                    break;
                 default:
                     System.out.println("Opció no vàlida!");
             }

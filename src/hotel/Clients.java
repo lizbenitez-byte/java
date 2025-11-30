@@ -23,7 +23,7 @@ public class Clients {
         this.nom = nom;
         this.dataNaix = dataNaix;
         this.localitat = localitat;
-        this.cobrat = true;
+        this.cobrat = false;
         this.checkin = false;
     }
     //Getters
