@@ -28,22 +28,22 @@ public class Hotel {
 
         //crem hablitacions
         for (int i = 1; i < 10; i++) {
-        habitacio.add(new Habitacions(i+9,60,true));
+            habitacio.add(new Habitacions(i, 60, true));
         }
-        for (int i = 1; i < 10; i++) {
-        habitacio.add(new Habitacions(i+20,80,true));
+        for (int i = 10; i < 21; i++) {
+            habitacio.add(new Habitacions(i, 80, true));
         }
         //crem serveis
         servei.add(new Serveis(01, "Bogaderia", 10.0));
         servei.add(new Serveis(02, "Esmorzar", 11.0));
         servei.add(new Serveis(03, "Dinar", 20.0));
         servei.add(new Serveis(04, "Sopar", 18.0));
-        
+
         //crear clients 
-        client.add(new Clients ("111A", "Liz", "20-03-2000", "Vic"));
-        client.add(new Clients ("222B", "Laura", "12-09-2007", "Torello"));
-        client.add(new Clients ("333C", "Xevi", "20-03-2000", "Vic"));
-        
+        client.add(new Clients("111A", "Liz", "20-03-2000", "Vic"));
+        client.add(new Clients("222B", "Laura", "12-09-2007", "Torello"));
+        client.add(new Clients("333C", "Xevi", "20-03-2000", "Vic"));
+
         Menu();
     }
 
@@ -79,30 +79,63 @@ public class Hotel {
                 cMod = i;
             }
         }
+        int entrada = 0;
+        while (entrada != 5) {
+            System.out.println("\nQuin camp vols cambiar del client " + nif);
+            System.out.println("1. NIF");
+            System.out.println("2. NOM");
+            System.out.println("3. Data de neixament");
+            System.out.println("4. Localitat");
+            System.out.println("5. Modificacio finalitzada");
+            System.out.println("------------------------------");
 
-        System.out.println("Entra el nou nif: ");
-        nif = sc.next();
-        client.get(cMod).setNif(nif);
-        System.out.println("Entra el nou nom: ");
-        String nom = sc.next();
-        client.get(cMod).setNom(nom);
-        System.out.println("Entra el nova data de neixament: ");
-        String dataNaix = sc.next();
-        client.get(cMod).setDataNaix(dataNaix);
-        System.out.println("Entra el nova localitat: ");
-        String localitat = sc.next();
-        client.get(cMod).setLocalitat(localitat);
+            System.out.println("Escull una d'aquestes opcions: \n");
 
+            entrada = sc.nextInt();
+
+            switch (entrada) {
+
+                case 1:
+                    System.out.println("Entra el nou nif: ");
+                    nif = sc.next();
+                    client.get(cMod).setNif(nif);
+                    break;
+                case 2:
+                    System.out.println("Entra el nou nom: ");
+                    String nom = sc.next();
+                    client.get(cMod).setNom(nom);
+                    break;
+                case 3:
+                    System.out.println("Entra el nova data de neixament: ");
+                    String dataNaix = sc.next();
+                    client.get(cMod).setDataNaix(dataNaix);
+                    break;
+                case 4:
+                    System.out.println("Entra el nova localitat: ");
+                    String localitat = sc.next();
+                    client.get(cMod).setLocalitat(localitat);
+                    break;
+                case 5:
+                    System.out.println("Modificacio del client finalitzat: ");
+                    System.out.println(client.get(cMod));
+                    break;
+                default:
+                    System.out.println("Opció no vàlida.");
+            }
+        }
         return client.get(cMod);
     }
 
     public static void Menu() {
         int input = 0;
         while (input != 5) {
+            System.out.println("    Menu Principal        ");
+            System.out.println("------------------------------");
             System.out.println("1. Alta nou client");
             System.out.println("2. LListar Clients");
             System.out.println("3. Modificar les dades");
-            System.out.println("4. Operacions amb client");
+            System.out.println("4. Operacions del client");
+            System.out.println("------------------------------");
             input = sc.nextInt();
 
             switch (input) {
@@ -149,7 +182,7 @@ public class Hotel {
     public static void submenu(String nif) {
 
         int input = 0;
-        while (input != 11) {
+        while (input != 10) {
             System.out.println("1. Llistar Habitacions");
             System.out.println("2. Checkin");
             System.out.println("3. Servei Bogederia");
@@ -158,7 +191,7 @@ public class Hotel {
             System.out.println("6. Servei Sopar");
             System.out.println("7. Consultar import actual");
             System.out.println("8. Checkout");
-            System.out.println("9. Tornar al menu");
+            System.out.println("9. Tornar al menu principal");
             System.out.println("10. Sortir del sistema");
             System.out.println("------------------------------");
 
@@ -184,9 +217,17 @@ public class Hotel {
                             int numHab = sc.nextInt();
 
                             for (int j = 0; j < habitacio.size(); j++) {
+
+                                // Comprovar primer que sigui l'habitació correcta I que estigui lliure
                                 if (habitacio.get(j).getNumHabitacio() == numHab && habitacio.get(j).isLliure()) {
+
+                                    // Assignar l'habitació i marcar-la com ocupada
                                     habitacio.get(j).setLliure(false);
-                                    estada.add(new Estades(nif, habitacio.get(i)));
+
+                                    // Crear l'estada
+                                    estada.add(new Estades(nif, habitacio.get(j)));
+
+                                    // Marcar el client com a check-in
                                     client.get(i).setCheckin(true);
 
                                     clientAllotjat = true;
@@ -197,7 +238,7 @@ public class Hotel {
                                     break; // 
                                 }
                             }
-                            break; // 🔥 PARA DE BUSCAR CLIENTE
+                            break; // 
                         }
                     }
                     if (!clientAllotjat) {
@@ -223,12 +264,7 @@ public class Hotel {
                     break;
 
                 case 4:
-                    for (int i = 0; i < estada.size(); i++) {
-                        if (estada.get(i).getNifclients().equals(nif)) {
-                            estadActual = estada.get(i);
-                            break;
-                        }
-                    }
+                
                     for (int j = 0; j < servei.size(); j++) {
                         Serveis s = servei.get(j);
                         if (s.getIdServei() == 02) {
@@ -240,12 +276,7 @@ public class Hotel {
 
                     break;
                 case 5:
-                    for (int i = 0; i < estada.size(); i++) {
-                        if (estada.get(i).getNifclients().equals(nif)) {
-                            estadActual = estada.get(i);
-                            break;
-                        }
-                    }
+                 
                     for (int j = 0; j < servei.size(); j++) {
                         Serveis s = servei.get(j);
                         if (s.getIdServei() == 03) {
@@ -258,12 +289,7 @@ public class Hotel {
                     break;
 
                 case 6:
-                    for (int i = 0; i < estada.size(); i++) {
-                        if (estada.get(i).getNifclients().equals(nif)) {
-                            estadActual = estada.get(i);
-                            break;
-                        }
-                    }
+                    
                     for (int j = 0; j < servei.size(); j++) {
                         Serveis s = servei.get(j);
                         if (s.getIdServei() == 04) {
@@ -280,44 +306,48 @@ public class Hotel {
                     break;
 
                 case 8:
-                    System.out.println("Introdueix data de sortida(yyyy-MM-dd): \n");
+                    // Demanar la data de sortida
+                    System.out.println("Introdueix data de sortida (yyyy-MM-dd): \n");
                     String dataSortida = sc.next();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     LocalDate parseDate = LocalDate.parse(dataSortida, formatter);
 
-                    //Desem la data de entrada a l'estada
+                    // Guardar la data de sortida a l'estada del client
                     for (int i = 0; i < estada.size(); i++) {
                         if (nif.equals(estada.get(i).getNifclients())) {
-                            estada.get(i).setDataSortida(parseDate);
+                            estada.get(i).setDataSortida(parseDate); // assignar la data de sortida
 
-                            System.out.println("DADES DE LA ESTADA -CHECKOUT: \n");
-                            System.out.println(estada.toString());
+                            // Mostrar les dades de l'estada al checkout
+                            System.out.println("DADES DE LA ESTADA - CHECKOUT: \n");
+                            System.out.println(estada.get(i).toString());
 
-                            System.out.println("Preu Total:");
-                            System.out.println(estada.get(i).CalculFactura(ChronoUnit.DAYS.between(estada.get(i).getDataEntrada(), parseDate))+" euros");
-                           
-                            //client cobrat si s'ha cobrat
-                            for (i = 0; i < client.size(); i++) {
-                                if(client.get(i).isCobrat()){
-                                    client.get(i).setCobrat(true);    
+                            // Calcular i mostrar el preu total segons dies d'estada
+                            System.out.println("Preu Total segons dies d'estada + preu habitació:");
+                            System.out.println(estada.get(i).CalculFactura(ChronoUnit.DAYS.between(estada.get(i).getDataEntrada(), parseDate)) + " euros");
+
+                            // Marcar el client com cobrat
+                            for (int j = 0; j < client.size(); j++) {
+                                if (!client.get(j).isCobrat()) { // si no s'ha cobrat
+                                    client.get(j).setCobrat(true); // marcar com a cobrat
                                 }
                             }
-                            //posar la habitacio lliure
+
+                            // Posar la habitació lliure de nou
                             for (int j = 0; j < habitacio.size(); j++) {
-                                if (habitacio.get(j).isLliure()){
-                                  habitacio.get(j).setLliure(true);  
+                                if (!habitacio.get(j).isLliure()) { // si està ocupada
+                                    habitacio.get(j).setLliure(true); // tornar a posar lliure
                                 }
                             }
                         }
                     }
-                        break;
-
-                case 9:
-                        Menu(); 
                     break;
-                    
+                case 9:
+                    Menu();
+                    break;
+
                 case 10:
-                        
+                    System.out.println("Sortin del programa...");
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("Opció no vàlida!");

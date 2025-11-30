@@ -17,7 +17,7 @@ public class Habitacions {
     public Habitacions(int numHabitacio, int preuNit, boolean lliure) {
         this.numHabitacio = numHabitacio;
         this.preuNit = preuNit;
-        this.lliure = true;
+        this.lliure = lliure;
     }
     //getter
 
