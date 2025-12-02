@@ -81,7 +81,7 @@ public class Hotel {
         }
         int entrada = 0;
         while (entrada != 5) {
-            System.out.println("\nQuin camp vols cambiar del client " + nif);
+            System.out.println("\nQuin camp vols cambiar del client? " + nif);
             System.out.println("1. NIF");
             System.out.println("2. NOM");
             System.out.println("3. Data de neixament");
@@ -150,7 +150,6 @@ public class Hotel {
                     }
                     break;
                 case 3:
-                    String nif;
                     ModificarDades();
                     break;
 
@@ -160,7 +159,7 @@ public class Hotel {
 
                     System.out.println("Entra el nif del client");
 
-                    nif = sc.next();  // demana el NIf
+                    String nif = sc.next();  // demana el NIf
 
                     for (int i = 0; i < client.size(); i++) {
                         if (nif.equals(client.get(i).getNif())) {
@@ -170,8 +169,8 @@ public class Hotel {
                         }
                     }
                     if (!clientExisteix) {
-                        System.out.println("No s'ha trobat el client.");
-                    }
+                            System.out.println("No s'ha trobat el client.");
+                        }
                     break;
                 default:
                     System.out.println("opcio no valida !");
@@ -230,19 +229,19 @@ public class Hotel {
                                     // Marcar el client com a check-in
                                     client.get(i).setCheckin(true);
 
-                                    clientAllotjat = true;
+                            clientAllotjat = true;
 
-                                    System.out.println("CHECK-IN " + nif);
-                                    System.out.println(estada.getLast());
+                            System.out.println("CHECK-IN " + nif);
+                            System.out.println(estada.getLast());
 
                                     break; // 
-                                }
-                            }
+                        }
+                    }
                             break; // 
                         }
                     }
                     if (!clientAllotjat) {
-                        System.out.println("J'ha s'ha fet el check-in aquest client.");;
+                        System.out.println("J'ha s'ha fet el check-in aquest client.");
                     }
                     break;
 
@@ -322,7 +321,7 @@ public class Hotel {
                             System.out.println(estada.get(i).toString());
 
                             // Calcular i mostrar el preu total segons dies d'estada
-                            System.out.println("Preu Total segons dies d'estada + preu habitació:");
+                            System.out.println("Preu total segons dies d'estada + preu habitació:");
                             System.out.println(estada.get(i).CalculFactura(ChronoUnit.DAYS.between(estada.get(i).getDataEntrada(), parseDate)) + " euros");
 
                             // Marcar el client com cobrat

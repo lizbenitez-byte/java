@@ -78,7 +78,7 @@ private double importActual = 0;
      public double CalculFactura(double DiesEstada) {
         return (DiesEstada *
                 this.getHabitacio().getPreuNit()+ 
-                this.getImportActual())+ 1.16;
+                this.getImportActual())* 1.16;
     }
     
 
