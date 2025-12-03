@@ -81,7 +81,7 @@ public class Hotel {
         }
         int entrada = 0;
         while (entrada != 5) {
-            System.out.println("\nQuin camp vols cambiar del client? " + nif);
+            System.out.println("\nQuin camp vols cambiar del client: " + nif);
             System.out.println("1. NIF");
             System.out.println("2. NOM");
             System.out.println("3. Data de neixament");
@@ -120,7 +120,7 @@ public class Hotel {
                     System.out.println(client.get(cMod));
                     break;
                 default:
-                    System.out.println("Opció no vàlida.");
+                    System.out.println("Opcio no valida.");
             }
         }
         return client.get(cMod);
@@ -173,7 +173,7 @@ public class Hotel {
                         }
                     break;
                 default:
-                    System.out.println("opcio no valida !");
+                    System.out.println("opcio no valida");
             }
         }
     }
@@ -321,7 +321,7 @@ public class Hotel {
                             System.out.println(estada.get(i).toString());
 
                             // Calcular i mostrar el preu total segons dies d'estada
-                            System.out.println("Preu total segons dies d'estada + preu habitació:");
+                            System.out.println("Preu total segons dies d'estada + preu habitacio:");
                             System.out.println(estada.get(i).CalculFactura(ChronoUnit.DAYS.between(estada.get(i).getDataEntrada(), parseDate)) + " euros");
 
                             // Marcar el client com cobrat
@@ -349,7 +349,7 @@ public class Hotel {
                     System.exit(0);
                     break;
                 default:
-                    System.out.println("Opció no vàlida!");
+                    System.out.println("Opcio no valida!");
             }
         }
     }
